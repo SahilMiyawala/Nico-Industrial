@@ -780,6 +780,7 @@ const Inquiry: React.FC = () => {
     const { name, value } = e.target
     setNewUserData({ ...newUserData, [name]: value })
   }
+  const [brandIds, setBrandIds] = useState<string[]>([])
 
   const handleSubmitNewUser = async () => {
     const submissionData = {
@@ -1122,6 +1123,7 @@ const Inquiry: React.FC = () => {
       setSelectedBrands(uniqueBrands)
 
       const brandIdsString = uniqueBrands.map((brand) => brand.value).join(",")
+      setBrandIds(brandIdsString);
       if (brandIdsString) {
         fetchProductsByBrands(brandIdsString)
       }
@@ -1443,18 +1445,24 @@ const Inquiry: React.FC = () => {
   const fetchProducts = async (inputValue = "") => {
     setIsLoadingProducts(true)
     try {
-      const response = await axios.get(`https://nicoindustrial.com/api/product/list`, {
+      const response = await axios.get(`https://nicoindustrial.com/api/product/listByBrands?brandIds=${brandIds}&page=1&size=10&search=${inputValue}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: {
-          search: inputValue,
-        },
       })
-      const products = response.data.data.productList.map((product: Product) => ({
+      // const products = response.data.data.productList.map((product: Product) => ({
+      //   value: product.productId,
+      //   label: product.productName,
+      // }))
+
+      const products = response.data.data.map((product: Product) => ({
         value: product.productId,
-        label: product.productName,
+        label: `${product.productName}${product.price ? ` - $${product.price}` : ""}`,
       }))
+      console.log("Products:", products);
+      
+      setProductOptions(products)
+      
     } catch (error) {
       console.error("Error fetching products:", error)
     } finally {
@@ -1559,6 +1567,7 @@ const Inquiry: React.FC = () => {
 
   const handleProductSearch = (inputValue: string) => {
     debounceSearch(fetchProducts, inputValue, setIsLoadingProducts)
+    fetchProducts(inputValue)
   }
 
   const handleConsultantSearch = (inputValue: string) => {
@@ -1697,6 +1706,7 @@ const Inquiry: React.FC = () => {
           brandIds: brandIds,
         },
       })
+      setBrandIds(brandIds.toString())
       const products = response.data.data.map((product: Product) => ({
         value: product.productId,
         label: `${product.productName}${product.price ? ` - $${product.price}` : ""}`,
