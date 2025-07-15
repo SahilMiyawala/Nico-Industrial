@@ -2321,17 +2321,17 @@ const Inquiry: React.FC = () => {
 
       {/* Table */}
       <div data-aos="fade-up" className="overflow-auto custom-scroll">
-        <table className="min-w-full bg-white rounded-lg">
+        <table className="min-w-full bg-white rounded-lg text-sm">
           <thead className="bg-[#38487c] text-white dark:bg-black">
             <tr className="border border-gray-500">
-              <th className="px-4 py-2 min-w-[80px]">Sr No</th>
-              <th className="px-4 py-2 min-w-[200px]">Project Name</th>
-              <th className="px-4 py-2 min-w-[300px]">Consumer</th>
-              <th className="px-4 py-2 min-w-[400px]">Product</th>
-              <th className="px-4 py-2 min-w-[130px]">Consultant</th>
-              <th className="px-4 py-2 min-w-[170px]">Inquiry Status</th>
-              <th className="px-4 py-2 min-w-[150px]">Win/Loss</th>
-              <th className="px-4 py-2 min-w-[200px]">Actions</th>
+              <th className="px-4 py-2 min-w-[70px]">Sr No</th>
+              <th className="px-4 py-2 min-w-[150px]">Project Name</th>
+              <th className="px-4 py-2 min-w-[200px]">Consumer</th>
+              <th className="px-4 py-2 min-w-[250px]">Product</th>
+              <th className="px-4 py-2 min-w-[100px]">Consultant</th>
+              <th className="px-4 py-2 min-w-[130px]">Inquiry Status</th>
+              <th className="px-4 py-2 min-w-[100px]">Win/Loss</th>
+              <th className="px-4 py-2 min-w-[160px]">Actions</th>
             </tr>
           </thead>
           <tbody>
